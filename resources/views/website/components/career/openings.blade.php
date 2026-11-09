@@ -92,7 +92,7 @@
                                      alt="{{ $title }} Hiring Poster" 
                                      class="w-100 h-100 reel-poster-img"
                                      style="object-fit: cover; object-position: top center; display: block; transition: transform 0.35s ease;"
-                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                     onerror="this.style.display='none'; this.nextElementSibling.classList.remove('d-none');">
                                 
                                 <!-- Fallback Branded Card if poster fails to load -->
                                 <div class="fallback-poster w-100 h-100 d-none flex-column align-items-center justify-content-center p-4 text-center text-white"
