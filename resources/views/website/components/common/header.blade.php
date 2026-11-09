@@ -233,6 +233,13 @@
                                 <a class="home-link" href="{{ route('home') }}" rel="home">
                                     <img id="logo-img" class="img-fluid auto_size" src="{{ $logo }}" alt="logo-img" >
                                     <style>
+                                       @media (min-width: 992px) {
+                                           .cmt-header-style-01 #site-header-menu .site-navigation ul.menu > li > a {
+                                               padding-left: 14px !important;
+                                               padding-right: 14px !important;
+                                               font-size: 15.5px !important;
+                                           }
+                                       }
                                        @media (min-width:786px) {
                                         #logo-img{
                                             min-height:100px;
@@ -321,6 +328,9 @@
                                     </li>
                                     <li class="mega-menu-item">
                                         <a href="{{ route('our-presence') }}">Our Presence</a>
+                                    </li>
+                                    <li class="mega-menu-item {{ request()->routeIs('career') ? 'active' : '' }}">
+                                        <a href="{{ route('career') }}" class="{{ request()->routeIs('career') ? 'text-danger' : '' }}" style="{{ request()->routeIs('career') ? 'color: #dc2626 !important; border-bottom: 2px solid #dc2626; padding-bottom: 4px;' : '' }}">Careers</a>
                                     </li>
                                     <li class="mega-menu-item ">
                                         <a href="{{ route('contact-us') }}">Contact us</a>

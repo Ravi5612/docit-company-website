@@ -37,7 +37,17 @@ Route::get('/eea', function () {
     return view('website.pages.eea');
 })->name('eea');
 Route::get('/career', function () {
-    return view('website.pages.career');
+    $jobs = [];
+    try {
+        $apiUrl = env('HRMS_API_URL', 'https://omnidesk.dritm.com');
+        $response = \Illuminate\Support\Facades\Http::withoutVerifying()->timeout(4)->get("{$apiUrl}/recruitment/public/jobs");
+        if ($response->successful()) {
+            $jobs = $response->json();
+        }
+    } catch (\Throwable $e) {
+        \Illuminate\Support\Facades\Log::warning('Failed to fetch jobs from HRMS: ' . $e->getMessage());
+    }
+    return view('website.pages.career', compact('jobs'));
 })->name('career');
 Route::get('/contact-us', function () {
     return view('website.pages.contact-us');

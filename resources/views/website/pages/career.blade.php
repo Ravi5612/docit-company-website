@@ -1,34 +1,22 @@
 @extends('website.layout.app')
-@section('title', 'Career | Dr IT Group')
+@section('title', 'Careers | Dr IT Group')
 @section('content')
-    @include('website.components.career.banner')
-    @include('website.components.career.form')
-    @include('website.components.career.about')
+
+    <!-- 1. Hero Section: BUILD YOUR FUTURE WITH US -->
+    @include('website.components.career.hero')
+
+    <!-- 2. Why Join Dr IT Group? -->
+    @include('website.components.career.why-join')
+
+    <!-- 3. Explore Current Openings -->
+    @include('website.components.career.openings')
+
+    <!-- 4. How to Apply -->
+    @include('website.components.career.how-to-apply')
 
 @endsection
 @push('scripts')
-
-    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        //  console.log('career page');
-        document.getElementById('contact-form').addEventListener('submit', function (e) {
-
-            e.preventDefault();
-
-            grecaptcha.ready(function () {
-                grecaptcha.execute('{{ env("RECAPTCHA_SITE_KEY") }}', {
-                    action: 'career_form'
-                }).then(function (token) {
-
-                    document.getElementById('recaptcha-token').value = token;
-
-                    document.getElementById('contact-form').submit();
-                });
-            });
-
-        });
-    </script>
     @if(session('success'))
         <script>
             Swal.fire({
