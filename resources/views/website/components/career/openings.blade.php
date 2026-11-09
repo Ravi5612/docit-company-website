@@ -19,7 +19,7 @@
         </div>
 
         <!-- Openings Reel Grid -->
-        <div class="row g-4 justify-content-center">
+        <div class="row gx-4 gy-4 justify-content-center career-cards-row">
             @php
                 $portalUrl = env('HRMS_APP_URL', 'https://omnidesk.dritm.com');
                 $backendBase = env('HRMS_BACKEND_URL', 'https://omnidesk.dritm.com');
@@ -49,7 +49,7 @@
                     }
                 @endphp
 
-                <div class="col-lg-4 col-md-6 col-12 d-flex">
+                <div class="col-lg-4 col-md-6 col-12 d-flex insta-reel-col">
                     <!-- Instagram Reel Card -->
                     <div class="insta-reel-card bg-white rounded-4 overflow-hidden border shadow-sm w-100 d-flex flex-column"
                          style="border-color: #e2e8f0; border-radius: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: transform 0.25s ease, box-shadow 0.25s ease;">
@@ -137,7 +137,7 @@
                         </div>
 
                         <!-- 3. Details & Uniform Meta Information -->
-                        <div class="p-3.5 d-flex flex-column flex-grow-1" style="background: #ffffff;">
+                        <div class="d-flex flex-column flex-grow-1" style="background: #ffffff; padding: 22px 20px 20px;">
                             
                             <!-- Job Title -->
                             <h4 class="fw-bold mb-2 text-truncate" style="font-size: 18px; color: #0f172a; font-weight: 800; text-transform: capitalize;" title="{{ $title }}">
@@ -280,6 +280,23 @@
 </div>
 
 <style>
+    .insta-reel-col {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+        margin-bottom: 24px !important;
+    }
+    .insta-reel-card {
+        border-radius: 20px !important;
+        border: 1px solid #e2e8f0 !important;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+    }
+    .insta-reel-card:hover {
+        transform: translateY(-6px) !important;
+        box-shadow: 0 20px 35px -5px rgba(220, 38, 38, 0.12), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        border-color: #fca5a5 !important;
+    }
+
     .insta-reel-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 16px 35px -4px rgba(0, 0, 0, 0.12) !important;
