@@ -1,31 +1,31 @@
-<!-- Section: Explore Current Openings (Real-time Live Sync with HRMS) -->
+<!-- ============================================== -->
+<!-- SECTION: Explore Current Openings (Real-time Live Sync with HRMS) -->
+<!-- ============================================== -->
 <section id="current-openings" class="current-openings-section py-5" style="background: #f8fafc;">
     <div class="container py-4">
         
-        <!-- Header with Title and View All Jobs -->
-        <div class="d-flex align-items-center justify-content-between mb-5 flex-wrap gap-3">
-            <div class="d-flex align-items-center gap-3">
-                <span style="height: 2px; width: 45px; background: #dc2626; display: inline-block; border-radius: 2px;"></span>
-                <h2 class="mb-0 fw-bold" style="font-size: 30px; font-weight: 800; color: #0f172a; letter-spacing: -0.3px;">
+        <!-- Section Header -->
+        <div class="text-center mb-5">
+            <div class="d-inline-flex align-items-center gap-2 mb-2">
+                <span style="display: inline-block; width: 35px; height: 2px; background: #dc2626;"></span>
+                <h2 class="section-title fw-bold m-0" style="font-size: 32px; color: #0f172a; letter-spacing: -0.5px;">
                     Explore <span style="color: #dc2626;">Current Openings</span>
                 </h2>
-                <span style="height: 2px; width: 45px; background: #dc2626; display: inline-block; border-radius: 2px;"></span>
+                <span style="display: inline-block; width: 35px; height: 2px; background: #dc2626;"></span>
             </div>
-            <a href="#current-openings" class="btn btn-outline-danger btn-sm px-3.5 py-2 rounded-pill fw-bold d-inline-flex align-items-center gap-1.5"
-               style="border-color: #dc2626; color: #dc2626; font-size: 13px; font-weight: 700; transition: all 0.2s ease;">
-                <span>View All Jobs</span>
-                <span>&rarr;</span>
-            </a>
+            <p class="text-muted mx-auto" style="max-width: 600px; font-size: 14.5px;">
+                Find your next career move at Dr IT Group. Real-time vacancies with fast-track interviews.
+            </p>
         </div>
 
-        @php
-            $portalUrl = env('HRMS_APP_URL', 'https://omnidesk.dritm.com');
-            $backendBase = env('HRMS_BACKEND_URL', 'https://omnidesk.dritm.com');
-            $activeJobs = (!empty($jobs) && is_array($jobs)) ? $jobs : [];
-        @endphp
-
-        <!-- Instagram Reel Style Job Grid: Live Sync with HRMS -->
+        <!-- Openings Reel Grid -->
         <div class="row g-4 justify-content-center">
+            @php
+                $portalUrl = env('HRMS_APP_URL', 'https://omnidesk.dritm.com');
+                $backendBase = env('HRMS_BACKEND_URL', 'https://omnidesk.dritm.com');
+                $activeJobs = (!empty($jobs) && is_array($jobs)) ? $jobs : [];
+            @endphp
+
             @forelse($activeJobs as $index => $item)
                 @php
                     $isDynamic = isset($item['shareSlug']) && !empty($item['shareSlug']);
@@ -40,7 +40,6 @@
                     if (is_string($skills)) {
                         $skills = json_decode($skills, true) ?: [$skills];
                     }
-                    $caption = trim(strip_tags($item['caption'] ?? $item['description'] ?? ''));
 
                     $posterSrc = null;
                     if (!empty($item['posterUrl'])) {
@@ -50,15 +49,15 @@
                     }
                 @endphp
 
-                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                <div class="col-lg-4 col-md-6 col-12 d-flex">
                     <!-- Instagram Reel Card -->
-                    <div class="insta-reel-card bg-white rounded-4 overflow-hidden border shadow-sm h-100 d-flex flex-column"
+                    <div class="insta-reel-card bg-white rounded-4 overflow-hidden border shadow-sm w-100 d-flex flex-column"
                          style="border-color: #e2e8f0; border-radius: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: transform 0.25s ease, box-shadow 0.25s ease;">
                         
                         <!-- 1. Header (Instagram Profile Style) -->
                         <div class="p-3 d-flex align-items-center justify-content-between border-bottom" style="background: #ffffff;">
-                            <div class="d-flex align-items-center gap-2.5">
-                                <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-xs" 
+                            <div class="d-flex align-items-center gap-2.5 overflow-hidden">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-xs shrink-0" 
                                      style="width: 38px; height: 38px; background: linear-gradient(135deg, #dc2626, #991b1b); font-size: 13.5px; flex-shrink: 0;">
                                     DR
                                 </div>
@@ -72,20 +71,21 @@
                                         </svg>
                                     </div>
                                     <span class="text-muted d-block text-truncate" style="font-size: 11px;">
-                                        {{ $deptName }} • 📍 {{ $location }}
+                                        {{ $deptName }} &bull; 📍 {{ $location }}
                                     </span>
                                 </div>
                             </div>
                             <span class="badge rounded-pill px-2.5 py-1 shrink-0" 
-                                  style="background: #fef2f2; color: #dc2626; font-weight: 700; font-size: 11px; border: 1px solid #fecaca;">
+                                  style="background: #fef2f2; color: #dc2626; font-weight: 700; font-size: 11px; border: 1px solid #fecaca; white-space: nowrap;">
                                 🔥 {{ $openingsCount }} {{ $openingsCount > 1 ? 'Openings' : 'Opening' }}
                             </span>
                         </div>
 
                         <!-- 2. Instagram Reel Media (Official Poster Display) -->
                         <div class="insta-reel-media position-relative overflow-hidden" 
-                             style="height: 380px; background: #0f172a; cursor: pointer;"
-                             onclick="openReelLightbox({{ $index }})">
+                             style="height: 430px; background: #0f172a; cursor: pointer;"
+                             onclick="openReelLightbox({{ $index }})"
+                             title="Click to view full poster">
                             
                             @if($posterSrc)
                                 <img src="{{ $posterSrc }}" 
@@ -105,7 +105,7 @@
                                     </div>
                                     <span class="badge bg-danger rounded-pill px-3 py-1 mb-2">WE ARE HIRING</span>
                                     <h4 class="fw-bold text-white mb-2">{{ $title }}</h4>
-                                    <p class="text-white-50 small mb-0">📍 {{ $location }} • {{ $exp }}</p>
+                                    <p class="text-white-50 small mb-0">📍 {{ $location }} &bull; {{ $exp }}</p>
                                 </div>
                             @else
                                 <!-- Branded Default Card -->
@@ -119,39 +119,40 @@
                                     </div>
                                     <span class="badge bg-danger rounded-pill px-3 py-1 mb-2 fw-bold" style="font-size: 11px;">WE ARE HIRING</span>
                                     <h4 class="fw-bold text-white mb-2" style="font-size: 20px;">{{ $title }}</h4>
-                                    <p class="text-white-50 small mb-0">📍 {{ $location }} • {{ $exp }}</p>
+                                    <p class="text-white-50 small mb-0">📍 {{ $location }} &bull; {{ $exp }}</p>
                                 </div>
                             @endif
 
-                            <!-- Floating Bottom Overlay (Tap to Expand Hint) -->
-                            <div class="position-absolute bottom-0 start-0 end-0 p-3 d-flex justify-content-between align-items-center"
-                                 style="background: linear-gradient(transparent, rgba(15,23,42,0.85)); pointer-events: none;">
-                                <span class="text-white fw-bold d-flex align-items-center gap-1.5" style="font-size: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
-                                    🔍 Click for Full Screen
-                                </span>
-                                <span class="badge bg-white text-dark px-2.5 py-1 rounded-pill fw-bold" style="font-size: 10.5px;">
-                                    Full Reel
-                                </span>
+                            <!-- Floating Top-Right Zoom Pill (Clean & Non-intrusive) -->
+                            <div class="position-absolute top-0 end-0 m-2.5 d-flex align-items-center gap-1.5 px-2.5 py-1 rounded-pill"
+                                 style="background: rgba(15,23,42,0.72); backdrop-filter: blur(4px); color: #ffffff; font-size: 11px; font-weight: 600; pointer-events: none; z-index: 2;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                                </svg>
+                                <span>Tap to Zoom</span>
                             </div>
                         </div>
 
-                        <!-- 3. Details & Instagram Style Caption -->
+                        <!-- 3. Details & Uniform Meta Information -->
                         <div class="p-3.5 d-flex flex-column flex-grow-1" style="background: #ffffff;">
                             
                             <!-- Job Title -->
-                            <h4 class="fw-bold mb-2 text-truncate" style="font-size: 18px; color: #0f172a; font-weight: 800;" title="{{ $title }}">
+                            <h4 class="fw-bold mb-2 text-truncate" style="font-size: 18px; color: #0f172a; font-weight: 800; text-transform: capitalize;" title="{{ $title }}">
                                 {{ $title }}
                             </h4>
 
                             <!-- Meta Chips -->
                             <div class="d-flex flex-wrap gap-1.5 mb-2.5">
-                                <span class="badge border px-2 py-1 rounded-pill" style="font-size: 11.5px; background: #f8fafc; color: #334155; border-color: #e2e8f0;">
+                                <span class="badge border px-2.5 py-1.5 rounded-pill" style="font-size: 11.5px; background: #f8fafc; color: #334155; border-color: #e2e8f0; font-weight: 600;">
                                     💼 {{ $exp }}
                                 </span>
-                                <span class="badge border px-2 py-1 rounded-pill" style="font-size: 11.5px; background: #f8fafc; color: #334155; border-color: #e2e8f0;">
+                                <span class="badge border px-2.5 py-1.5 rounded-pill" style="font-size: 11.5px; background: #f8fafc; color: #334155; border-color: #e2e8f0; font-weight: 600;">
                                     💰 {{ $salary }}
                                 </span>
-                                <span class="badge border px-2 py-1 rounded-pill" style="font-size: 11.5px; background: #f8fafc; color: #334155; border-color: #e2e8f0;">
+                                <span class="badge border px-2.5 py-1.5 rounded-pill" style="font-size: 11.5px; background: #f8fafc; color: #334155; border-color: #e2e8f0; font-weight: 600;">
                                     📍 {{ $location }}
                                 </span>
                             </div>
@@ -160,26 +161,19 @@
                             @if(!empty($skills))
                                 <div class="d-flex flex-wrap gap-1 mb-3">
                                     @foreach(array_slice($skills, 0, 4) as $sk)
-                                        <span class="badge rounded-pill" style="font-size: 10.5px; font-weight: 500; background: #f1f5f9; color: #475569;">
+                                        <span class="badge rounded-pill" style="font-size: 10.5px; font-weight: 600; background: #f1f5f9; color: #475569;">
                                             #{{ str_replace(' ', '', $sk) }}
                                         </span>
                                     @endforeach
                                 </div>
                             @endif
 
-                            <!-- Caption Preview if available -->
-                            @if(!empty($caption))
-                                <p class="text-secondary small mb-3 text-truncate-2" style="font-size: 12.5px; line-height: 1.5; color: #475569;">
-                                    {{ $caption }}
-                                </p>
-                            @endif
-
-                            <!-- 4. Action Buttons -->
+                            <!-- 4. Action Button (Always Anchored at Bottom) -->
                             <div class="mt-auto pt-2">
                                 <a href="{{ $applyUrl }}" 
                                    @if($isDynamic) target="_blank" rel="noopener" @endif
                                    class="btn btn-danger w-100 py-2.5 rounded-pill fw-bold text-white d-flex align-items-center justify-content-center gap-2 shadow-xs"
-                                   style="background: #dc2626; border: none; font-size: 13.5px; font-weight: 700; box-shadow: 0 4px 12px rgba(220,38,38,0.25);">
+                                   style="background: #dc2626; border: none; font-size: 14px; font-weight: 700; box-shadow: 0 4px 12px rgba(220,38,38,0.25);">
                                     <span>Apply Online Directly</span>
                                     <span>&rarr;</span>
                                 </a>
@@ -239,43 +233,43 @@
                 <!-- Header Profile -->
                 <div class="p-3 border-bottom d-flex align-items-center justify-content-between bg-white">
                     <div class="d-flex align-items-center gap-2.5">
-                        <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold"
+                        <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shrink-0"
                              style="width: 38px; height: 38px; background: #dc2626; font-size: 13.5px;">
                             DR
                         </div>
-                        <div>
+                        <div class="overflow-hidden">
                             <div class="d-flex align-items-center gap-1">
                                 <strong style="font-size: 14px; color: #0f172a;">Dr IT Group</strong>
                                 <span class="badge bg-danger rounded-pill px-2 py-0.5" style="font-size: 9.5px;">Hiring</span>
                             </div>
-                            <small id="lbLocationText" class="text-muted" style="font-size: 11px;">Gujarat</small>
+                            <small id="lbLocationText" class="text-muted text-truncate d-block" style="font-size: 11px;">Gujarat</small>
                         </div>
                     </div>
                 </div>
 
                 <!-- Scrollable Body -->
-                <div class="p-3.5 flex-grow-1 overflow-auto" style="max-height: 60vh;">
-                    <h4 id="lbJobTitle" class="fw-bold mb-2" style="color: #0f172a; font-size: 20px;"></h4>
+                <div class="p-3.5 flex-grow-1 overflow-auto" style="max-height: 55vh;">
+                    <h4 id="lbJobTitle" class="fw-bold mb-2" style="color: #0f172a; font-size: 20px; text-transform: capitalize;"></h4>
                     
                     <div class="d-flex flex-wrap gap-1.5 mb-3">
-                        <span id="lbExpBadge" class="badge border bg-light text-dark px-2.5 py-1"></span>
-                        <span id="lbSalaryBadge" class="badge border bg-light text-dark px-2.5 py-1"></span>
-                        <span id="lbOpeningsBadge" class="badge bg-danger-subtle text-danger px-2.5 py-1 border border-danger-subtle"></span>
+                        <span id="lbExpBadge" class="badge border bg-light text-dark px-2.5 py-1.5" style="font-size: 11.5px;"></span>
+                        <span id="lbSalaryBadge" class="badge border bg-light text-dark px-2.5 py-1.5" style="font-size: 11.5px;"></span>
+                        <span id="lbOpeningsBadge" class="badge bg-danger-subtle text-danger px-2.5 py-1.5 border border-danger-subtle" style="font-size: 11.5px;"></span>
                     </div>
 
                     <div id="lbSkillsArea" class="d-flex flex-wrap gap-1 mb-3"></div>
 
                     <div class="border-top pt-2.5">
-                        <h6 class="text-muted text-uppercase fw-bold" style="font-size: 11px; letter-spacing: 0.5px;">Job Requirements & Notes</h6>
-                        <p id="lbCaptionText" class="text-secondary small mb-0" style="white-space: pre-line; line-height: 1.6;"></p>
+                        <h6 class="text-muted text-uppercase fw-bold mb-1.5" style="font-size: 11px; letter-spacing: 0.5px;">Job Requirements & Notes</h6>
+                        <p id="lbCaptionText" class="text-secondary small mb-0" style="white-space: pre-line; line-height: 1.6; font-size: 12.5px;"></p>
                     </div>
                 </div>
 
                 <!-- Footer Apply CTA -->
-                <div class="p-3 border-top bg-light">
+                <div class="p-3 border-top bg-light mt-auto">
                     <a id="lbApplyBtn" href="#" target="_blank" rel="noopener" 
-                       class="btn btn-danger w-100 py-2.5 rounded-pill fw-bold text-white d-flex align-items-center justify-content-center gap-2"
-                       style="background: #dc2626; border: none; font-size: 14px;">
+                       class="btn btn-danger w-100 py-2.5 rounded-pill fw-bold text-white d-flex align-items-center justify-content-center gap-2 shadow-xs"
+                       style="background: #dc2626; border: none; font-size: 14px; font-weight: 700;">
                         <span>Apply Online Directly</span>
                         <span>&rarr;</span>
                     </a>
@@ -292,21 +286,24 @@
         border-color: #fca5a5 !important;
     }
     .insta-reel-card:hover .reel-poster-img {
-        transform: scale(1.04);
+        transform: scale(1.03);
     }
 
-    /* Modal Lightbox */
+    /* Modal Lightbox - Top Level Fix */
     .reel-lightbox-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 999999;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 2147483647 !important; /* Maximum possible z-index to stay above fixed site header */
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px;
+        padding: 24px;
+        box-sizing: border-box;
     }
     .reel-lightbox-backdrop {
         position: absolute;
@@ -314,7 +311,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(15, 23, 42, 0.88);
+        background: rgba(15, 23, 42, 0.92);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
     }
@@ -322,67 +319,95 @@
         position: relative;
         z-index: 10;
         width: 100%;
-        max-width: 950px;
-        max-height: 90vh;
+        max-width: 960px;
+        max-height: 88vh;
         background: #ffffff;
         border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+        display: flex;
+        flex-direction: column;
     }
     .reel-lightbox-close {
         position: absolute;
         top: 14px;
-        right: 18px;
-        z-index: 20;
-        background: rgba(0, 0, 0, 0.65);
+        right: 14px;
+        z-index: 50;
+        background: rgba(15, 23, 42, 0.75);
         color: #ffffff;
-        border: none;
-        width: 34px;
-        height: 34px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
-        font-size: 20px;
+        font-size: 22px;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: background 0.2s;
+        transition: all 0.2s;
     }
     .reel-lightbox-close:hover {
         background: #dc2626;
+        border-color: #dc2626;
+        transform: rotate(90deg);
     }
     .reel-lightbox-inner {
         display: flex;
         flex-direction: row;
-        max-height: 85vh;
+        height: 100%;
+        max-height: 88vh;
+        overflow: hidden;
     }
     .reel-lightbox-media {
-        flex: 1.2;
+        flex: 1.25;
         background: #0f172a;
         display: flex;
         align-items: center;
         justify-content: center;
         overflow: hidden;
+        padding: 16px;
+        min-height: 350px;
     }
     .reel-lightbox-media img {
-        max-height: 85vh;
-        width: 100%;
+        max-height: 82vh;
+        max-width: 100%;
         object-fit: contain;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     .reel-lightbox-sidebar {
         flex: 1;
         display: flex;
         flex-direction: column;
         background: #ffffff;
+        min-width: 320px;
+        border-left: 1px solid #e2e8f0;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 820px) {
+        .reel-lightbox-overlay {
+            padding: 12px;
+        }
+        .reel-lightbox-box {
+            max-height: 94vh;
+        }
         .reel-lightbox-inner {
             flex-direction: column;
-            max-height: 90vh;
             overflow-y: auto;
+            max-height: 94vh;
         }
         .reel-lightbox-media {
-            max-height: 45vh;
+            flex: none;
+            height: 48vh;
+            padding: 10px;
+        }
+        .reel-lightbox-media img {
+            max-height: 44vh;
+        }
+        .reel-lightbox-sidebar {
+            min-width: 100%;
+            border-left: none;
+            border-top: 1px solid #e2e8f0;
         }
     }
 </style>
@@ -390,6 +415,14 @@
 <script>
     // Job Data for Lightbox Modal
     window.careerJobsData = @json($activeJobs);
+
+    // Auto-mount modal directly to document.body to break out of any section stacking context
+    document.addEventListener('DOMContentLoaded', function () {
+        var modal = document.getElementById('reelLightboxModal');
+        if (modal && modal.parentElement !== document.body) {
+            document.body.appendChild(modal);
+        }
+    });
 
     function openReelLightbox(index) {
         var job = window.careerJobsData[index];
@@ -403,19 +436,18 @@
             posterSrc = job.posterUrl.startsWith('http') ? job.posterUrl : (backendBase.replace(/\/$/, '') + job.posterUrl);
         }
 
-        var applyUrl = job.shareSlug ? (portalUrl + '/careers/' + job.shareSlug) : '#contact-form';
+        var applyUrl = job.shareSlug ? (portalUrl + '/careers/' . job.shareSlug) : '#contact-form';
 
-        document.getElementById('lbPosterImg').src = posterSrc || '';
+        var posterImg = document.getElementById('lbPosterImg');
+        posterImg.src = posterSrc || '';
+        posterImg.style.display = posterSrc ? 'block' : 'none';
+
         document.getElementById('lbJobTitle').textContent = job.title || 'Job Opening';
         document.getElementById('lbLocationText').textContent = (job.department && job.department.name ? job.department.name + ' • ' : '') + '📍 ' + (job.location || 'Mohali');
-        document.getElementById('lbExpBadge').textContent = '💼 ' + (job.experience || 'Full Time');
+        document.getElementById('lbExpBadge').textContent = '💼 ' + (job.experience || '0-2 Years');
         document.getElementById('lbSalaryBadge').textContent = '💰 ' + (job.salaryRange || 'Competitive');
-        document.getElementById('lbOpeningsBadge').textContent = '🔥 ' + (job.openings || 1) + ' Openings';
-        
-        var capText = job.caption || job.description || 'Join our innovative team at Dr IT Group. Apply online to get scheduled for an interview directly with our HR team.';
-        document.getElementById('lbCaptionText').textContent = capText;
+        document.getElementById('lbOpeningsBadge').textContent = '🔥 ' + (job.openings || 1) + ' Opening' + ((job.openings > 1) ? 's' : '');
 
-        // Skills
         var skillsArea = document.getElementById('lbSkillsArea');
         skillsArea.innerHTML = '';
         var skills = job.skills || [];
@@ -423,77 +455,49 @@
             try { skills = JSON.parse(skills); } catch(e) { skills = [skills]; }
         }
         if (Array.isArray(skills)) {
-            skills.forEach(function(sk) {
+            skills.forEach(function (sk) {
                 var span = document.createElement('span');
-                span.className = 'badge rounded-pill bg-light text-secondary border px-2 py-1';
+                span.className = 'badge rounded-pill bg-light text-secondary border';
                 span.style.fontSize = '11px';
                 span.textContent = '#' + sk.replace(/\s+/g, '');
                 skillsArea.appendChild(span);
             });
         }
 
-        var applyBtn = document.getElementById('lbApplyBtn');
-        applyBtn.href = applyUrl;
-        if (applyUrl === '#contact-form') {
-            applyBtn.removeAttribute('target');
-            applyBtn.onclick = function() {
-                closeReelLightbox();
-                var form = document.getElementById('contact-form');
-                if (form) form.scrollIntoView({ behavior: 'smooth' });
-            };
-        } else {
-            applyBtn.setAttribute('target', '_blank');
-            applyBtn.onclick = null;
+        // Clean caption / notes (filter out social media hashtag template if present)
+        var rawDesc = job.description || '';
+        var cleanNote = 'Join our innovative team at Dr IT Group. Apply online to get scheduled for an interview directly with our HR team.';
+        if (rawDesc && !rawDesc.includes('🚀 We are hiring') && !rawDesc.includes('#Hiring')) {
+            cleanNote = rawDesc;
         }
+        document.getElementById('lbCaptionText').textContent = cleanNote;
 
+        // Apply Button
+        var lbBtn = document.getElementById('lbApplyBtn');
+        var fullApplyUrl = job.shareSlug ? (portalUrl + '/careers/' + job.shareSlug) : '#contact-form';
+        lbBtn.href = fullApplyUrl;
+
+        // Display Modal
         var modal = document.getElementById('reelLightboxModal');
+        if (modal.parentElement !== document.body) {
+            document.body.appendChild(modal);
+        }
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
     }
 
     function closeReelLightbox() {
         var modal = document.getElementById('reelLightboxModal');
-        if (modal) modal.style.display = 'none';
+        if (modal) {
+            modal.style.display = 'none';
+        }
         document.body.style.overflow = '';
     }
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeReelLightbox();
-    });
-
-    // Quick Apply scroll handler
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.quick-apply-pill').forEach(function (btn) {
-            btn.addEventListener('click', function (e) {
-                var href = this.getAttribute('href');
-                if (href === '#contact-form') {
-                    e.preventDefault();
-                    var title = this.getAttribute('data-title');
-                    var dept = this.getAttribute('data-dept');
-                    
-                    var designationInput = document.querySelector('input[name="designation"]');
-                    var deptSelect = document.querySelector('select[name="department"]');
-                    var specInput = document.querySelector('input[name="specialization"]');
-
-                    if (designationInput && title) designationInput.value = title;
-                    if (specInput && title) specInput.value = title;
-                    if (deptSelect && dept) {
-                        for (var i = 0; i < deptSelect.options.length; i++) {
-                            if (deptSelect.options[i].text.toLowerCase().includes(dept.toLowerCase())) {
-                                deptSelect.selectedIndex = i;
-                                break;
-                            }
-                        }
-                    }
-
-                    var formElement = document.getElementById('contact-form') || document.querySelector('.query_form');
-                    if (formElement) {
-                        formElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        var nameInput = formElement.querySelector('input[name="name"]');
-                        if (nameInput) setTimeout(function () { nameInput.focus(); }, 600);
-                    }
-                }
-            });
-        });
+    // Close on Escape Key
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            closeReelLightbox();
+        }
     });
 </script>
