@@ -436,7 +436,7 @@
             posterSrc = job.posterUrl.startsWith('http') ? job.posterUrl : (backendBase.replace(/\/$/, '') + job.posterUrl);
         }
 
-        var applyUrl = job.shareSlug ? (portalUrl + '/careers/' . job.shareSlug) : '#contact-form';
+        var applyUrl = job.shareSlug ? (portalUrl + '/careers/' + job.shareSlug) : '#contact-form';
 
         var posterImg = document.getElementById('lbPosterImg');
         posterImg.src = posterSrc || '';
