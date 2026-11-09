@@ -217,62 +217,107 @@
     <div class="reel-lightbox-backdrop" onclick="closeReelLightbox()"></div>
     
     <div class="reel-lightbox-box">
-        <!-- Close Button -->
-        <button type="button" class="reel-lightbox-close" onclick="closeReelLightbox()" title="Close (Esc)">
-            &times;
-        </button>
-
         <div class="reel-lightbox-inner">
             <!-- Left: Full-Screen Poster Media -->
             <div class="reel-lightbox-media">
                 <img id="lbPosterImg" src="" alt="Job Poster" class="img-fluid lb-img">
             </div>
 
-            <!-- Right: Instagram Sidebar Details -->
+            <!-- Right: Premium Job Details Sidebar -->
             <div class="reel-lightbox-sidebar">
-                <!-- Header Profile -->
-                <div class="p-3 border-bottom d-flex align-items-center justify-content-between bg-white">
-                    <div class="d-flex align-items-center gap-2.5">
-                        <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shrink-0"
-                             style="width: 38px; height: 38px; background: #dc2626; font-size: 13.5px;">
+                <!-- Header Profile with Clean Close Button -->
+                <div class="p-3 px-4 border-bottom d-flex align-items-center justify-content-between bg-white position-relative">
+                    <div class="d-flex align-items-center gap-2.5 overflow-hidden">
+                        <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-xs shrink-0"
+                             style="width: 40px; height: 40px; background: linear-gradient(135deg, #dc2626, #991b1b); font-size: 13.5px; flex-shrink: 0;">
                             DR
                         </div>
                         <div class="overflow-hidden">
-                            <div class="d-flex align-items-center gap-1">
-                                <strong style="font-size: 14px; color: #0f172a;">Dr IT Group</strong>
-                                <span class="badge bg-danger rounded-pill px-2 py-0.5" style="font-size: 9.5px;">Hiring</span>
+                            <div class="d-flex align-items-center gap-1.5">
+                                <strong style="font-size: 14.5px; color: #0f172a; font-weight: 800;">Dr IT Group</strong>
+                                <svg style="width: 14px; height: 14px; fill: #0284c7; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                <span class="badge rounded-pill px-2 py-0.5" style="font-size: 9.5px; background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; font-weight: 700;">Active</span>
                             </div>
-                            <small id="lbLocationText" class="text-muted text-truncate d-block" style="font-size: 11px;">Gujarat</small>
+                            <small id="lbLocationText" class="text-muted text-truncate d-block" style="font-size: 11.5px; font-weight: 500;">Gujarat</small>
                         </div>
                     </div>
+                    <!-- Close Button -->
+                    <button type="button" class="btn-close-custom" onclick="closeReelLightbox()" title="Close (Esc)">
+                        &times;
+                    </button>
                 </div>
 
-                <!-- Scrollable Body -->
-                <div class="p-3.5 flex-grow-1 overflow-auto" style="max-height: 55vh;">
-                    <h4 id="lbJobTitle" class="fw-bold mb-2" style="color: #0f172a; font-size: 20px; text-transform: capitalize;"></h4>
-                    
-                    <div class="d-flex flex-wrap gap-1.5 mb-3">
-                        <span id="lbExpBadge" class="badge border bg-light text-dark px-2.5 py-1.5" style="font-size: 11.5px;"></span>
-                        <span id="lbSalaryBadge" class="badge border bg-light text-dark px-2.5 py-1.5" style="font-size: 11.5px;"></span>
-                        <span id="lbOpeningsBadge" class="badge bg-danger-subtle text-danger px-2.5 py-1.5 border border-danger-subtle" style="font-size: 11.5px;"></span>
+                <!-- Scrollable Body with Rich Visual Highlights -->
+                <div class="p-3 px-4 flex-grow-1 overflow-auto" style="max-height: 60vh;">
+                    <!-- Job Title -->
+                    <div class="mb-3">
+                        <span class="text-danger fw-bold text-uppercase" style="font-size: 10.5px; letter-spacing: 0.8px;">Open Designation</span>
+                        <h3 id="lbJobTitle" class="fw-bold m-0" style="color: #0f172a; font-size: 20px; font-weight: 800; text-transform: capitalize; line-height: 1.3;"></h3>
                     </div>
 
-                    <div id="lbSkillsArea" class="d-flex flex-wrap gap-1 mb-3"></div>
+                    <!-- 2x2 Key Highlights Grid -->
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <div class="p-2.5 rounded-3 border" style="background: #f8fafc; border-color: #e2e8f0;">
+                                <span class="text-muted d-block" style="font-size: 10px; text-transform: uppercase; font-weight: 600;">Experience</span>
+                                <strong id="lbExpText" class="d-block text-truncate" style="font-size: 13px; color: #1e293b;">0-2 Years</strong>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-2.5 rounded-3 border" style="background: #f8fafc; border-color: #e2e8f0;">
+                                <span class="text-muted d-block" style="font-size: 10px; text-transform: uppercase; font-weight: 600;">Salary Budget</span>
+                                <strong id="lbSalaryText" class="d-block text-truncate" style="font-size: 13px; color: #16a34a;">Competitive</strong>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-2.5 rounded-3 border" style="background: #f8fafc; border-color: #e2e8f0;">
+                                <span class="text-muted d-block" style="font-size: 10px; text-transform: uppercase; font-weight: 600;">Vacancies</span>
+                                <strong id="lbOpeningsText" class="d-block text-truncate" style="font-size: 13px; color: #dc2626;">1 Opening</strong>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-2.5 rounded-3 border" style="background: #f8fafc; border-color: #e2e8f0;">
+                                <span class="text-muted d-block" style="font-size: 10px; text-transform: uppercase; font-weight: 600;">Location</span>
+                                <strong id="lbLocationGridText" class="d-block text-truncate" style="font-size: 13px; color: #1e293b;">Gujarat</strong>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- Key Skills Required -->
+                    <div class="mb-3">
+                        <h6 class="text-uppercase fw-bold text-muted mb-2" style="font-size: 10.5px; letter-spacing: 0.5px;">Skills Required</h6>
+                        <div id="lbSkillsArea" class="d-flex flex-wrap gap-1.5"></div>
+                    </div>
+
+                    <!-- Fast-Track Interview Highlight -->
+                    <div class="p-2.5 px-3 rounded-3 mb-3" style="background: #fef2f2; border: 1px dashed #fca5a5;">
+                        <div class="d-flex align-items-center gap-1.5 mb-1">
+                            <span class="badge bg-danger rounded-pill px-2 py-0.5" style="font-size: 9.5px;">Fast-Track</span>
+                            <strong style="font-size: 12px; color: #991b1b;">Direct Interview Scheduling</strong>
+                        </div>
+                        <p class="text-muted small m-0" style="font-size: 11px; line-height: 1.4; color: #7f1d1d !important;">
+                            Applications submitted here go straight to our HR recruitment desk. Fast-track screening within 24 hours.
+                        </p>
+                    </div>
+
+                    <!-- Job Notes & Description -->
                     <div class="border-top pt-2.5">
-                        <h6 class="text-muted text-uppercase fw-bold mb-1.5" style="font-size: 11px; letter-spacing: 0.5px;">Job Requirements & Notes</h6>
-                        <p id="lbCaptionText" class="text-secondary small mb-0" style="white-space: pre-line; line-height: 1.6; font-size: 12.5px;"></p>
+                        <h6 class="text-muted text-uppercase fw-bold mb-1" style="font-size: 10.5px; letter-spacing: 0.5px;">Role Overview & Notes</h6>
+                        <p id="lbCaptionText" class="text-secondary small mb-0" style="white-space: pre-line; line-height: 1.5; font-size: 12px;"></p>
                     </div>
                 </div>
 
-                <!-- Footer Apply CTA -->
-                <div class="p-3 border-top bg-light mt-auto">
+                <!-- Sticky Footer Apply CTA -->
+                <div class="p-3 px-4 border-top bg-light mt-auto">
                     <a id="lbApplyBtn" href="#" target="_blank" rel="noopener" 
                        class="btn btn-danger w-100 py-2.5 rounded-pill fw-bold text-white d-flex align-items-center justify-content-center gap-2 shadow-xs"
-                       style="background: #dc2626; border: none; font-size: 14px; font-weight: 700;">
+                       style="background: #dc2626; border: none; font-size: 14.5px; font-weight: 700; box-shadow: 0 4px 14px rgba(220,38,38,0.25);">
                         <span>Apply Online Directly</span>
                         <span>&rarr;</span>
                     </a>
+                    <small class="text-muted text-center d-block mt-1.5" style="font-size: 10.5px;">
+                        ⚡ Direct HRMS Submission &bull; Verified Opening
+                    </small>
                 </div>
             </div>
         </div>
@@ -344,6 +389,27 @@
         box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
         display: flex;
         flex-direction: column;
+    }
+    .btn-close-custom {
+        background: #f1f5f9;
+        color: #475569;
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        font-size: 22px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        line-height: 1;
+        flex-shrink: 0;
+    }
+    .btn-close-custom:hover {
+        background: #fee2e2;
+        color: #dc2626;
+        transform: rotate(90deg);
     }
     .reel-lightbox-close {
         position: absolute;
@@ -461,9 +527,10 @@
 
         document.getElementById('lbJobTitle').textContent = job.title || 'Job Opening';
         document.getElementById('lbLocationText').textContent = (job.department && job.department.name ? job.department.name + ' • ' : '') + '📍 ' + (job.location || 'Mohali');
-        document.getElementById('lbExpBadge').textContent = '💼 ' + (job.experience || '0-2 Years');
-        document.getElementById('lbSalaryBadge').textContent = '💰 ' + (job.salaryRange || 'Competitive');
-        document.getElementById('lbOpeningsBadge').textContent = '🔥 ' + (job.openings || 1) + ' Opening' + ((job.openings > 1) ? 's' : '');
+        document.getElementById('lbExpText').textContent = job.experience || '0-2 Years';
+        document.getElementById('lbSalaryText').textContent = job.salaryRange || 'Competitive';
+        document.getElementById('lbOpeningsText').textContent = (job.openings || 1) + ' Vacanc' + ((job.openings > 1) ? 'ies' : 'y');
+        document.getElementById('lbLocationGridText').textContent = job.location || 'Mohali';
 
         var skillsArea = document.getElementById('lbSkillsArea');
         skillsArea.innerHTML = '';
