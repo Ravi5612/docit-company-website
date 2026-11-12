@@ -51,6 +51,30 @@ Route::get('/career', function () {
     }
     return view('website.pages.career', compact('jobs'));
 })->name('career');
+
+Route::get('/career-poster/{path}', function (string $path) {
+    $cleanPath = ltrim($path, '/');
+    if (!\Illuminate\Support\Str::startsWith($cleanPath, 'uploads/') || str_contains($cleanPath, '..')) {
+        abort(404);
+    }
+
+    $backendBase = rtrim(env('HRMS_BACKEND_URL', env('HRMS_API_URL', 'https://omnidesk.dritm.com')), '/');
+    try {
+        $response = \Illuminate\Support\Facades\Http::withoutVerifying()
+            ->timeout(10)
+            ->get("{$backendBase}/{$cleanPath}");
+        if (!$response->successful()) {
+            abort(404);
+        }
+
+        $contentType = $response->header('Content-Type') ?: 'image/png';
+        return response($response->body(), 200)
+            ->header('Content-Type', $contentType)
+            ->header('Cache-Control', 'public, max-age=86400');
+    } catch (\Throwable $e) {
+        abort(404);
+    }
+})->where('path', '.*')->name('career.poster');
 Route::get('/contact-us', function () {
     return view('website.pages.contact-us');
 })->name('contact-us');

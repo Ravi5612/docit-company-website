@@ -43,9 +43,18 @@
 
                     $posterSrc = null;
                     if (!empty($item['posterUrl'])) {
-                        $posterSrc = \Illuminate\Support\Str::startsWith($item['posterUrl'], 'http')
-                            ? $item['posterUrl']
-                            : rtrim($backendBase, '/') . $item['posterUrl'];
+                        $rawPoster = trim($item['posterUrl']);
+                        $backendHost = rtrim($backendBase, '/');
+                        if (\Illuminate\Support\Str::startsWith($rawPoster, $backendHost . '/uploads/')) {
+                            $rawPoster = substr($rawPoster, strlen($backendHost));
+                        }
+                        if (\Illuminate\Support\Str::startsWith($rawPoster, '/uploads/')) {
+                            $posterSrc = url('/career-poster/' . ltrim($rawPoster, '/'));
+                        } elseif (\Illuminate\Support\Str::startsWith($rawPoster, 'http')) {
+                            $posterSrc = $rawPoster;
+                        } else {
+                            $posterSrc = $backendHost . $rawPoster;
+                        }
                     }
                 @endphp
 
@@ -516,7 +525,18 @@
 
         var posterSrc = '';
         if (job.posterUrl) {
-            posterSrc = job.posterUrl.startsWith('http') ? job.posterUrl : (backendBase.replace(/\/$/, '') + job.posterUrl);
+            var rawPoster = String(job.posterUrl).trim();
+            var cleanBackend = backendBase.replace(/\/$/, '');
+            if (rawPoster.startsWith(cleanBackend + '/uploads/')) {
+                rawPoster = rawPoster.slice(cleanBackend.length);
+            }
+            if (rawPoster.startsWith('/uploads/')) {
+                posterSrc = '/career-poster/' + rawPoster.replace(/^\/+/, '');
+            } else if (rawPoster.startsWith('http')) {
+                posterSrc = rawPoster;
+            } else {
+                posterSrc = cleanBackend + rawPoster;
+            }
         }
 
         var applyUrl = job.shareSlug ? (portalUrl + '/careers/' + job.shareSlug) : '#contact-form';
