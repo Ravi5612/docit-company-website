@@ -39,10 +39,12 @@ Route::get('/eea', function () {
 Route::get('/career', function () {
     $jobs = [];
     try {
-        $apiUrl = env('HRMS_API_URL', 'https://omnidesk.dritm.com');
-        $response = \Illuminate\Support\Facades\Http::withoutVerifying()->timeout(4)->get("{$apiUrl}/recruitment/public/jobs");
+        $apiUrl = rtrim(env('HRMS_API_URL', 'https://omnidesk.dritm.com'), '/');
+        $response = \Illuminate\Support\Facades\Http::withoutVerifying()->timeout(10)->get("{$apiUrl}/recruitment/public/jobs");
         if ($response->successful()) {
             $jobs = $response->json();
+        } else {
+            \Illuminate\Support\Facades\Log::warning('HRMS public jobs returned non-success status: ' . $response->status());
         }
     } catch (\Throwable $e) {
         \Illuminate\Support\Facades\Log::warning('Failed to fetch jobs from HRMS: ' . $e->getMessage());
