@@ -21,8 +21,8 @@
         <!-- Openings Reel Grid -->
         <div class="row gx-4 gy-4 justify-content-center career-cards-row">
             @php
-                $portalUrl = env('HRMS_APP_URL', 'https://omnidesk.dritm.com');
-                $backendBase = env('HRMS_BACKEND_URL', 'https://omnidesk.dritm.com');
+                $portalUrl = env('HRMS_APP_URL') ?: 'https://omnidesk.dritm.com';
+                $backendBase = env('HRMS_BACKEND_URL') ?: 'https://omnidesk.dritm.com';
                 $activeJobs = (!empty($jobs) && is_array($jobs)) ? $jobs : [];
             @endphp
 
@@ -44,16 +44,14 @@
                     $posterSrc = null;
                     if (!empty($item['posterUrl'])) {
                         $rawPoster = trim($item['posterUrl']);
-                        $backendHost = rtrim($backendBase, '/');
-                        if (\Illuminate\Support\Str::startsWith($rawPoster, $backendHost . '/uploads/')) {
-                            $rawPoster = substr($rawPoster, strlen($backendHost));
-                        }
-                        if (\Illuminate\Support\Str::startsWith($rawPoster, '/uploads/')) {
-                            $posterSrc = url('/career-poster/' . ltrim($rawPoster, '/'));
+                        $parsedPath = parse_url($rawPoster, PHP_URL_PATH);
+                        if ($parsedPath && \Illuminate\Support\Str::startsWith($parsedPath, '/uploads/')) {
+                            $posterSrc = url('/career-poster/' . ltrim($parsedPath, '/'));
                         } elseif (\Illuminate\Support\Str::startsWith($rawPoster, 'http')) {
                             $posterSrc = $rawPoster;
                         } else {
-                            $posterSrc = $backendHost . $rawPoster;
+                            $backendHost = rtrim($backendBase, '/');
+                            $posterSrc = $backendHost . '/' . ltrim($rawPoster, '/');
                         }
                     }
                 @endphp
@@ -520,22 +518,27 @@
         var job = window.careerJobsData[index];
         if (!job) return;
 
-        var portalUrl = "{{ env('HRMS_APP_URL', 'https://omnidesk.dritm.com') }}";
-        var backendBase = "{{ env('HRMS_BACKEND_URL', 'https://omnidesk.dritm.com') }}";
+        var portalUrl = "{{ env('HRMS_APP_URL') ?: 'https://omnidesk.dritm.com' }}";
+        var backendBase = "{{ env('HRMS_BACKEND_URL') ?: 'https://omnidesk.dritm.com' }}";
 
         var posterSrc = '';
         if (job.posterUrl) {
             var rawPoster = String(job.posterUrl).trim();
             var cleanBackend = backendBase.replace(/\/$/, '');
-            if (rawPoster.startsWith(cleanBackend + '/uploads/')) {
-                rawPoster = rawPoster.slice(cleanBackend.length);
+            var posterPath = rawPoster;
+            if (/^https?:\/\//i.test(rawPoster)) {
+                try {
+                    posterPath = new URL(rawPoster).pathname;
+                } catch (e) {
+                    posterPath = rawPoster;
+                }
             }
-            if (rawPoster.startsWith('/uploads/')) {
-                posterSrc = '/career-poster/' + rawPoster.replace(/^\/+/, '');
+            if (posterPath.startsWith('/uploads/')) {
+                posterSrc = '/career-poster/' + posterPath.replace(/^\/+/, '');
             } else if (rawPoster.startsWith('http')) {
                 posterSrc = rawPoster;
             } else {
-                posterSrc = cleanBackend + rawPoster;
+                posterSrc = cleanBackend + '/' + rawPoster.replace(/^\/+/, '');
             }
         }
 

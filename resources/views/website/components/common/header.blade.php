@@ -123,7 +123,7 @@
 
                                 <div class="d-flex align-items-center pb-30">
                                     <div class="flotingbar-img">
-                                        <img class="img-fluid rounded-circle" src="images/flotingbar-img.png"
+                                        <img class="img-fluid rounded-circle" src="{{ asset('website/images/flotingbar-img.png') }}"
                                             height="60" width="60" alt="flotingbar-img">
                                     </div>
 

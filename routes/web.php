@@ -39,7 +39,7 @@ Route::get('/eea', function () {
 Route::get('/career', function () {
     $jobs = [];
     try {
-        $apiUrl = rtrim(env('HRMS_API_URL', 'https://omnidesk.dritm.com'), '/');
+        $apiUrl = rtrim(env('HRMS_API_URL') ?: 'https://omnidesk.dritm.com', '/');
         $response = \Illuminate\Support\Facades\Http::withoutVerifying()->timeout(10)->get("{$apiUrl}/recruitment/public/jobs");
         if ($response->successful()) {
             $jobs = $response->json();
@@ -58,7 +58,7 @@ Route::get('/career-poster/{path}', function (string $path) {
         abort(404);
     }
 
-    $backendBase = rtrim(env('HRMS_BACKEND_URL', env('HRMS_API_URL', 'https://omnidesk.dritm.com')), '/');
+    $backendBase = rtrim(env('HRMS_BACKEND_URL') ?: (env('HRMS_API_URL') ?: 'https://omnidesk.dritm.com'), '/');
     try {
         $response = \Illuminate\Support\Facades\Http::withoutVerifying()
             ->timeout(10)
